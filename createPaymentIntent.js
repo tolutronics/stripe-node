@@ -60,9 +60,13 @@ async function createPaymentIntent(req, res) {
     })
     .then((paymentIntent) => {
       res.json({
-        clientSecret: paymentIntent.client_secret,
-        ephemeralKey,
-        customer,
+        paymentIntentClientSecret: paymentIntent.client_secret,
+        ephemeralKey: ephemeralKey.secret,
+        customer: {
+          id: customer.id,
+          email: customer.email,
+          name: customer.name,
+        },
       });
     })
     .catch((error) => {
